@@ -26,7 +26,12 @@ const Login = () => {
       return;
     }
 
-    auth(form.idInstance, form.apiTokenInstance);
+    const res = await auth(form.idInstance, form.apiTokenInstance);
+
+    if (!res) {
+      setLoading(false);
+      setError(true);
+    }
 
     setLoading(false);
   }
