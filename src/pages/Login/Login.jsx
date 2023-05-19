@@ -46,9 +46,9 @@ const Login = () => {
             <h1>Авторизация</h1>
             <form>
               <Input
-                onChange={(e) => {
-                  setForm((p) => ({ ...p, idInstance: e.target.value }));
-                }}
+                onChange={(e) =>
+                  setForm((p) => ({ ...p, idInstance: e.target.value }))
+                }
                 value={form.idInstance}
                 required
                 placeholder="idInstance"
@@ -56,9 +56,9 @@ const Login = () => {
               <Input
                 value={form.apiTokenInstance}
                 required
-                onChange={(e) => {
-                  setForm((p) => ({ ...p, apiTokenInstance: e.target.value }));
-                }}
+                onChange={(e) =>
+                  setForm((p) => ({ ...p, apiTokenInstance: e.target.value }))
+                }
                 placeholder="apiTokenInstance"
               />
 

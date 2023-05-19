@@ -3,20 +3,37 @@
 .wrapper {
     display: flex;
 
-    .chatsList {
+    .chats {
         display: flex;
         flex-direction: column;
-        justify-content: center;
-        align-items: center;
         width: 30%;
         height: 100vh;
         border-right: 1px solid #e9e9e9;
 
-        .no_сhats {
-            color: $gray;
-            cursor: default;
+        .navbar {
+            padding: 10px 20px;
+            display: flex;
+            gap: 8px;
+
+            label {
+                width: 100%;
+            }
+        }
+
+        .chatsList {
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            height: 100%;
+
+            .no_сhats {
+                color: $gray;
+                cursor: default;
+            }
         }
     }
+
 
     .chatInfo {
         display: flex;

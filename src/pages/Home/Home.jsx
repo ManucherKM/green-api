@@ -1,19 +1,49 @@
 import { useState } from "react";
 import classes from "./Home.module.scss";
+import Input from "../../components/Input/Input";
+import NavigateButton from "../../components/NavigateButton/NavigateButton";
 
 const Home = () => {
   const [chats, setChats] = useState([]);
   const [currentChat, setCurrentChat] = useState({});
+  const [search, setSearch] = useState("");
+
+  function createChat() {}
 
   return (
     <div className={classes.wrapper}>
-      <div className={classes.chatsList}>
-        {!chats.length ? (
-          <span className={classes.no_сhats}>Нет чатов</span>
-        ) : (
-          <div>Чаты есть</div>
-        )}
+      <div className={classes.chats}>
+        <div className={classes.navbar}>
+          <label>
+            <Input
+              onChange={(e) => setSearch(e.target.value)}
+              placeholder="Поиск"
+            />
+          </label>
+          <NavigateButton onClick={createChat}>
+            <svg
+              width="20"
+              height="20"
+              viewBox="0 0 32 32"
+              fill="none"
+              xmlns="http://www.w3.org/2000/svg"
+            >
+              <path
+                d="M32 16C32 16.3536 31.8595 16.6928 31.6095 16.9428C31.3594 17.1929 31.0203 17.3333 30.6667 17.3333H17.3333V30.6667C17.3333 31.0203 17.1929 31.3594 16.9428 31.6095C16.6928 31.8595 16.3536 32 16 32C15.6464 32 15.3072 31.8595 15.0572 31.6095C14.8071 31.3594 14.6667 31.0203 14.6667 30.6667V17.3333H1.33333C0.979711 17.3333 0.640573 17.1929 0.390525 16.9428C0.140476 16.6928 0 16.3536 0 16C0 15.6464 0.140476 15.3072 0.390525 15.0572C0.640573 14.8071 0.979711 14.6667 1.33333 14.6667H14.6667V1.33333C14.6667 0.979711 14.8071 0.640573 15.0572 0.390525C15.3072 0.140476 15.6464 0 16 0C16.3536 0 16.6928 0.140476 16.9428 0.390525C17.1929 0.640573 17.3333 0.979711 17.3333 1.33333V14.6667H30.6667C31.0203 14.6667 31.3594 14.8071 31.6095 15.0572C31.8595 15.3072 32 15.6464 32 16Z"
+                fill="#3b4a54"
+              />
+            </svg>
+          </NavigateButton>
+        </div>
+        <div className={classes.chatsList}>
+          {!chats.length ? (
+            <span className={classes.no_сhats}>Нет чатов</span>
+          ) : (
+            <div>Чаты есть</div>
+          )}
+        </div>
       </div>
+
       <div className={classes.chatInfo}>
         {!Object.keys(currentChat).length ? (
           <>
