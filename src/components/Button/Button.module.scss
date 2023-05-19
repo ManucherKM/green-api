@@ -1,0 +1,15 @@
+@import "../../assets/styles/vars.scss";
+
+.btn {
+    border: none;
+    outline: none;
+    background-color: $green;
+    color: white;
+    padding: 10px 5px;
+    border-radius: 8px;
+    cursor: pointer;
+
+    &:hover {
+        opacity: 0.8;
+    }
+}
