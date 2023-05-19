@@ -5,7 +5,10 @@ import axios from '../axios'
 export const useAuthStore = create(
 	persist(
 		set => ({
-			user: {},
+			user: {
+				idInstance: "",
+				apiTokenInstance: "",
+			},
 			isAuth: false,
 			auth: async (idInstance, apiTokenInstance) => {
 				if (!idInstance || !apiTokenInstance) {
@@ -21,7 +24,9 @@ export const useAuthStore = create(
 						return
 					}
 
-					set({ isAuth: true })
+					set({
+						isAuth: true, user: { idInstance, apiTokenInstance }
+					})
 
 					return true
 				} catch (e) {
