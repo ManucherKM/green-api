@@ -1,0 +1,14 @@
+@import '../../assets/styles/vars.scss';
+
+.input {
+	outline: none;
+	padding: 10px 20px;
+	border-radius: 8px;
+	border: 1px solid $green;
+	font-size: inherit;
+
+	&:focus {
+		border-color: teal;
+		opacity: 1;
+	}
+}

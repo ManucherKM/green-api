@@ -1,0 +1,28 @@
+@import '../../assets/styles/vars.scss';
+
+.wrapper {
+	width: 100vw;
+	height: 100vh;
+	display: flex;
+	justify-content: center;
+	align-items: center;
+
+	.form_wrapper {
+		display: flex;
+		flex-direction: column;
+		gap: 20px;
+
+		h1 {
+			font-size: 22px;
+			color: $green;
+			text-align: center;
+			cursor: default;
+		}
+
+		form {
+			display: flex;
+			flex-direction: column;
+			gap: 10px;
+		}
+	}
+}
