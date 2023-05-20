@@ -1,0 +1,18 @@
+@import '../../assets/styles/vars.scss';
+
+.wrapper {
+	padding: 10px 0;
+	display: flex;
+	justify-content: flex-start;
+
+	&.user {
+		justify-content: flex-end;
+	}
+
+	span {
+		border-radius: 8px;
+		background-color: white;
+		padding: 10px;
+		border: 1px solid $green;
+	}
+}

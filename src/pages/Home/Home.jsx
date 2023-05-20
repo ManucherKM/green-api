@@ -1,4 +1,4 @@
-import { useState } from 'react'
+import { useEffect, useState } from 'react'
 import classes from './Home.module.scss'
 import Input from '../../components/Input/Input'
 import NavigateButton from '../../components/NavigateButton/NavigateButton'
@@ -6,6 +6,8 @@ import CreateChat from '../../components/CreateChat/CreateChat'
 import { useStore } from '../../store'
 import { useMemo } from 'react'
 import ChatListItem from '../../components/ChatListItem/ChatListItem'
+import Loader from '../../components/Loader/Loader'
+import Message from '../../components/Message/Message'
 
 const Home = () => {
 	const chats = useStore(state => state.chats)
@@ -13,6 +15,8 @@ const Home = () => {
 	const [modalCreateChat, setModalCreateChat] = useState({ visible: false })
 	const [search, setSearch] = useState('')
 	const showChats = useMemo(updateShowChats, [chats, search])
+	const getMessages = useStore(state => state.getMessages)
+	const [loadingMessages, setLoadingMessages] = useState(false)
 
 	function updateShowChats() {
 		return chats.filter(chat => {
@@ -24,6 +28,30 @@ const Home = () => {
 	function createChat() {
 		setModalCreateChat(p => ({ ...p, visible: true }))
 	}
+
+	useEffect(() => {
+		setLoadingMessages(true)
+
+		if (!currentChat.chatId) {
+			return
+		}
+
+		const fetchMessages = async () => {
+			const res = await getMessages(currentChat.chatId)
+
+			if (!res) {
+				return
+			}
+
+			setCurrentChat(p => ({
+				...p,
+				messages: res,
+			}))
+		}
+
+		fetchMessages()
+		setLoadingMessages(false)
+	}, [currentChat.chatId])
 
 	return (
 		<div className={classes.wrapper}>
@@ -63,7 +91,11 @@ const Home = () => {
 					) : (
 						<>
 							{showChats.map(chat => (
-								<ChatListItem key={chat.chatId} number={chat.chatId} />
+								<ChatListItem
+									key={chat.chatId}
+									number={chat.chatId}
+									onClick={() => setCurrentChat({ chatId: chat.chatId })}
+								/>
 							))}
 						</>
 					)}
@@ -174,7 +206,23 @@ const Home = () => {
 						</svg>
 					</>
 				) : (
-					<div></div>
+					<>
+						{loadingMessages ? (
+							<Loader />
+						) : (
+							<div className={classes.panel_chat}>
+								{currentChat.messages &&
+									currentChat.messages.map(msg => (
+										<Message
+											key={msg.idMessage}
+											text={msg.textMessage}
+											isUser={msg.type === 'outgoing'}
+										/>
+									))}
+								<Input placeholder='Сообщение' />
+							</div>
+						)}
+					</>
 				)}
 			</div>
 		</div>

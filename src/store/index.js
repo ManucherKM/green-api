@@ -4,7 +4,7 @@ import axios from '../axios'
 
 export const useStore = create(
 	persist(
-		set => ({
+		(set, get) => ({
 			user: {
 				idInstance: '',
 				apiTokenInstance: '',
@@ -53,6 +53,29 @@ export const useStore = create(
 				})
 
 				return chat
+			},
+			getMessages: async chatId => {
+				if (!chatId) {
+					return
+				}
+
+				const params = {
+					chatId: chatId + '@c.us',
+					count: 50,
+				}
+
+				const { data } = await axios.post(
+					`/waInstance${get().user.idInstance}/GetChatHistory/${
+						get().user.apiTokenInstance
+					}`,
+					params
+				)
+
+				if (!data.length) {
+					return
+				}
+
+				return data
 			},
 		}),
 		{
