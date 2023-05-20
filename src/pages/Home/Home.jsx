@@ -57,14 +57,11 @@ const Home = () => {
 			if (!res) {
 				return
 			}
-			console.log(res)
-			console.log(res.reverse())
+
 			setCurrentChat(p => ({
 				...p,
 				messages: res,
 			}))
-
-			setTimeout(fetchMessages, 1000)
 		}
 
 		fetchMessages()
