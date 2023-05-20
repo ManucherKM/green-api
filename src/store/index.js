@@ -36,7 +36,7 @@ export const useStore = create(
 			},
 		}),
 		{
-			name: 'auth-store',
+			name: 'store',
 		}
 	)
 )
