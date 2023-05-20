@@ -10,6 +10,7 @@ export const useStore = create(
 				apiTokenInstance: '',
 			},
 			isAuth: false,
+			chats: [],
 			auth: async (idInstance, apiTokenInstance) => {
 				if (!idInstance || !apiTokenInstance) {
 					return
@@ -33,6 +34,25 @@ export const useStore = create(
 				} catch (e) {
 					return
 				}
+			},
+			createChat: chatId => {
+				if (!chatId) {
+					return
+				}
+
+				const chat = { chatId: chatId }
+
+				set(state => {
+					const isExist = state.chats.find(chat => chat.chatId === chatId)
+
+					if (!isExist) {
+						return { chats: [...state.chats, chat] }
+					}
+
+					return {}
+				})
+
+				return chat
 			},
 		}),
 		{

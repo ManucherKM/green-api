@@ -1,0 +1,21 @@
+@import '../../assets/styles/vars.scss';
+
+.wrapper {
+	display: flex;
+	justify-content: center;
+	align-items: center;
+	padding: 20px;
+	cursor: pointer;
+
+	span {
+		font-weight: 500;
+	}
+
+	&:hover {
+		background-color: $green;
+
+		span {
+			color: white;
+		}
+	}
+}

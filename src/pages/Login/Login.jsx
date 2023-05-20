@@ -3,6 +3,7 @@ import Input from '../../components/Input/Input'
 import Button from '../../components/Button/Button'
 import { useState } from 'react'
 import Loader from '../../components/Loader/Loader'
+import TextError from '../../components/TextError/TextError'
 import { useStore } from '../../store'
 
 const Login = () => {
@@ -63,7 +64,7 @@ const Login = () => {
 								placeholder='apiTokenInstance'
 							/>
 
-							{error && <h3>Некорректные данные</h3>}
+							{error && <TextError>Некорректные данные</TextError>}
 							<Button onClick={sendForm}>Отправить</Button>
 						</form>
 					</>

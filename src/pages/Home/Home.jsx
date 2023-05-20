@@ -3,14 +3,23 @@ import classes from './Home.module.scss'
 import Input from '../../components/Input/Input'
 import NavigateButton from '../../components/NavigateButton/NavigateButton'
 import CreateChat from '../../components/CreateChat/CreateChat'
+import { useStore } from '../../store'
+import { useMemo } from 'react'
+import ChatListItem from '../../components/ChatListItem/ChatListItem'
 
 const Home = () => {
-	const [chats, setChats] = useState([])
+	const chats = useStore(state => state.chats)
 	const [currentChat, setCurrentChat] = useState({})
-	const [modalCreateChat, setModalCreateChat] = useState({
-		visible: false,
-	})
+	const [modalCreateChat, setModalCreateChat] = useState({ visible: false })
 	const [search, setSearch] = useState('')
+	const showChats = useMemo(updateShowChats, [chats, search])
+
+	function updateShowChats() {
+		return chats.filter(chat => {
+			const number = chat.chatId.toLowerCase()
+			return number.includes(search.toLowerCase())
+		})
+	}
 
 	function createChat() {
 		setModalCreateChat(p => ({ ...p, visible: true }))
@@ -20,7 +29,7 @@ const Home = () => {
 		<div className={classes.wrapper}>
 			{modalCreateChat.visible && (
 				<CreateChat
-					onBgClick={() => setModalCreateChat(p => ({ ...p, visible: false }))}
+					setVisible={() => setModalCreateChat(p => ({ ...p, visible: false }))}
 				/>
 			)}
 			<div className={classes.chats}>
@@ -47,10 +56,16 @@ const Home = () => {
 					</NavigateButton>
 				</div>
 				<div className={classes.chatsList}>
-					{!chats.length ? (
-						<span className={classes.no_сhats}>Нет чатов</span>
+					{!showChats.length ? (
+						<div className={classes.wrapper_no_chats}>
+							<span className={classes.no_сhats}>Нет чатов</span>
+						</div>
 					) : (
-						<div>Чаты есть</div>
+						<>
+							{showChats.map(chat => (
+								<ChatListItem key={chat.chatId} number={chat.chatId} />
+							))}
+						</>
 					)}
 				</div>
 			</div>
