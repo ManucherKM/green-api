@@ -77,6 +77,26 @@ export const useStore = create(
 
 				return data
 			},
+			sendMessage: async (chatId, message) => {
+				if (!chatId || !message) {
+					return
+				}
+
+				const params = { chatId: chatId + '@c.us', message }
+
+				const { data } = await axios.post(
+					`/waInstance${get().user.idInstance}/SendMessage/${
+						get().user.apiTokenInstance
+					}`,
+					params
+				)
+
+				if (!data) {
+					return
+				}
+
+				return data
+			},
 		}),
 		{
 			name: 'store',

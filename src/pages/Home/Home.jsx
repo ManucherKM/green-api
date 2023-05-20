@@ -11,12 +11,14 @@ import Message from '../../components/Message/Message'
 
 const Home = () => {
 	const chats = useStore(state => state.chats)
+	const getMessages = useStore(state => state.getMessages)
+	const sendMessage = useStore(state => state.sendMessage)
 	const [currentChat, setCurrentChat] = useState({})
-	const [modalCreateChat, setModalCreateChat] = useState({ visible: false })
+	const [modalCreateChat, setModalCreateChat] = useState(false)
 	const [search, setSearch] = useState('')
 	const showChats = useMemo(updateShowChats, [chats, search])
-	const getMessages = useStore(state => state.getMessages)
 	const [loadingMessages, setLoadingMessages] = useState(false)
+	const [message, setMessage] = useState('')
 
 	function updateShowChats() {
 		return chats.filter(chat => {
@@ -27,6 +29,19 @@ const Home = () => {
 
 	function createChat() {
 		setModalCreateChat(p => ({ ...p, visible: true }))
+	}
+
+	function sendMessageHandler(e) {
+		if (e.key !== 'Enter') {
+			return
+		}
+
+		if (!message) {
+			return
+		}
+
+		sendMessage(currentChat.chatId, message)
+		setMessage('')
 	}
 
 	useEffect(() => {
@@ -42,11 +57,14 @@ const Home = () => {
 			if (!res) {
 				return
 			}
-
+			console.log(res)
+			console.log(res.reverse())
 			setCurrentChat(p => ({
 				...p,
 				messages: res,
 			}))
+
+			setTimeout(fetchMessages, 1000)
 		}
 
 		fetchMessages()
@@ -55,10 +73,8 @@ const Home = () => {
 
 	return (
 		<div className={classes.wrapper}>
-			{modalCreateChat.visible && (
-				<CreateChat
-					setVisible={() => setModalCreateChat(p => ({ ...p, visible: false }))}
-				/>
+			{modalCreateChat && (
+				<CreateChat setVisible={() => setModalCreateChat(false)} />
 			)}
 			<div className={classes.chats}>
 				<div className={classes.navbar}>
@@ -94,7 +110,9 @@ const Home = () => {
 								<ChatListItem
 									key={chat.chatId}
 									number={chat.chatId}
-									onClick={() => setCurrentChat({ chatId: chat.chatId })}
+									onClick={() =>
+										setCurrentChat(p => ({ ...p, chatId: chat.chatId }))
+									}
 								/>
 							))}
 						</>
@@ -219,7 +237,12 @@ const Home = () => {
 											isUser={msg.type === 'outgoing'}
 										/>
 									))}
-								<Input placeholder='Сообщение' />
+								<Input
+									onKeyDown={sendMessageHandler}
+									value={message}
+									onChange={e => setMessage(e.target.value)}
+									placeholder='Сообщение'
+								/>
 							</div>
 						)}
 					</>
