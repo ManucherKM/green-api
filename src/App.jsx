@@ -2,10 +2,10 @@ import { Routes, Route } from 'react-router-dom'
 import Home from './pages/Home/Home'
 import Login from './pages/Login/Login'
 import NotFound from './pages/NotFound/NotFound'
-import { useAuthStore } from './store'
+import { useStore } from './store'
 
 const App = () => {
-	const isAuth = useAuthStore(state => state.isAuth)
+	const isAuth = useStore(state => state.isAuth)
 
 	return (
 		<>
