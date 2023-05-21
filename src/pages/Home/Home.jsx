@@ -1,4 +1,4 @@
-import { useEffect, useState } from 'react'
+import { useState } from 'react'
 import classes from './Home.module.scss'
 import Input from '../../components/Input/Input'
 import NavigateButton from '../../components/NavigateButton/NavigateButton'
@@ -6,19 +6,14 @@ import CreateChat from '../../components/CreateChat/CreateChat'
 import { useStore } from '../../store'
 import { useMemo } from 'react'
 import ChatListItem from '../../components/ChatListItem/ChatListItem'
-import Loader from '../../components/Loader/Loader'
-import Message from '../../components/Message/Message'
+import PanelChat from '../../components/PanelChat/PanelChat'
 
 const Home = () => {
 	const chats = useStore(state => state.chats)
-	const getMessages = useStore(state => state.getMessages)
-	const sendMessage = useStore(state => state.sendMessage)
-	const [currentChat, setCurrentChat] = useState({})
+	const [currentChat, setCurrentChat] = useState(null)
 	const [modalCreateChat, setModalCreateChat] = useState(false)
 	const [search, setSearch] = useState('')
 	const showChats = useMemo(updateShowChats, [chats, search])
-	const [loadingMessages, setLoadingMessages] = useState(false)
-	const [message, setMessage] = useState('')
 
 	function updateShowChats() {
 		return chats.filter(chat => {
@@ -30,43 +25,6 @@ const Home = () => {
 	function createChat() {
 		setModalCreateChat(p => ({ ...p, visible: true }))
 	}
-
-	function sendMessageHandler(e) {
-		if (e.key !== 'Enter') {
-			return
-		}
-
-		if (!message) {
-			return
-		}
-
-		sendMessage(currentChat.chatId, message)
-		setMessage('')
-	}
-
-	useEffect(() => {
-		setLoadingMessages(true)
-
-		if (!currentChat.chatId) {
-			return
-		}
-
-		const fetchMessages = async () => {
-			const res = await getMessages(currentChat.chatId)
-
-			if (!res) {
-				return
-			}
-
-			setCurrentChat(p => ({
-				...p,
-				messages: res,
-			}))
-		}
-
-		fetchMessages()
-		setLoadingMessages(false)
-	}, [currentChat.chatId])
 
 	return (
 		<div className={classes.wrapper}>
@@ -107,9 +65,7 @@ const Home = () => {
 								<ChatListItem
 									key={chat.chatId}
 									number={chat.chatId}
-									onClick={() =>
-										setCurrentChat(p => ({ ...p, chatId: chat.chatId }))
-									}
+									onClick={() => setCurrentChat(chat.chatId)}
 								/>
 							))}
 						</>
@@ -118,7 +74,7 @@ const Home = () => {
 			</div>
 
 			<div className={classes.chatInfo}>
-				{!Object.keys(currentChat).length ? (
+				{!currentChat ? (
 					<>
 						<svg
 							viewBox='0 0 303 172'
@@ -221,28 +177,7 @@ const Home = () => {
 						</svg>
 					</>
 				) : (
-					<>
-						{loadingMessages ? (
-							<Loader />
-						) : (
-							<div className={classes.panel_chat}>
-								{currentChat.messages &&
-									currentChat.messages.map(msg => (
-										<Message
-											key={msg.idMessage}
-											text={msg.textMessage}
-											isUser={msg.type === 'outgoing'}
-										/>
-									))}
-								<Input
-									onKeyDown={sendMessageHandler}
-									value={message}
-									onChange={e => setMessage(e.target.value)}
-									placeholder='Сообщение'
-								/>
-							</div>
-						)}
-					</>
+					<PanelChat currentChat={currentChat} />
 				)}
 			</div>
 		</div>

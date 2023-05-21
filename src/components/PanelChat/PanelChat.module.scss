@@ -1,0 +1,12 @@
+.wrapper {
+	height: 100%;
+	width: 100%;
+	padding: 20px;
+	overflow: auto;
+	display: flex;
+	flex-direction: column;
+
+	input {
+		margin-top: auto;
+	}
+}

@@ -47,15 +47,5 @@
 		width: 70%;
 		height: 100vh;
 		background-color: $white_gray;
-
-		.panel_chat {
-			height: 100%;
-			width: 100%;
-			padding: 20px;
-			display: flex;
-			flex-direction: column;
-			justify-content: flex-end;
-			overflow: scroll;
-		}
 	}
 }

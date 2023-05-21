@@ -61,7 +61,7 @@ export const useStore = create(
 
 				const params = {
 					chatId: chatId + '@c.us',
-					count: 50,
+					count: 10,
 				}
 
 				const { data } = await axios.post(
@@ -94,6 +94,27 @@ export const useStore = create(
 				if (!data) {
 					return
 				}
+
+				return data
+			},
+			getNotifications: async () => {
+				const { data } = await axios.get(
+					`/waInstance${get().user.idInstance}/receiveNotification/${
+						get().user.apiTokenInstance
+					}`
+				)
+				return data
+			},
+			removeNotifications: async receiptId => {
+				if (!receiptId) {
+					return
+				}
+
+				const { data } = await axios.get(
+					`/waInstance${get().user.idInstance}/receiveNotification/${
+						get().user.apiTokenInstance
+					}/${receiptId}`
+				)
 
 				return data
 			},
