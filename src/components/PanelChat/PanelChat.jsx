@@ -30,7 +30,7 @@ const PanelChat = ({ currentChat }) => {
 
 		if (res) {
 			fetchMessages()
-			// removeNotifications(res[0].receiptId)
+			removeNotifications(res[0].receiptId)
 		}
 
 		setTimeout(checkUpdates, 4000)
@@ -68,9 +68,6 @@ const PanelChat = ({ currentChat }) => {
 
 	useEffect(() => {
 		fetchMessages()
-	}, [currentChat])
-
-	useEffect(() => {
 		checkUpdates()
 	}, [])
 
