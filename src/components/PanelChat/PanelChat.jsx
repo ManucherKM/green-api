@@ -30,7 +30,7 @@ const PanelChat = ({ currentChat }) => {
 
 		if (res) {
 			fetchMessages()
-			removeNotifications(res[0].receiptId)
+			removeNotifications(res.receiptId)
 		}
 
 		setTimeout(checkUpdates, 4000)
