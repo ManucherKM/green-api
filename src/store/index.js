@@ -110,8 +110,8 @@ export const useStore = create(
 					return
 				}
 
-				const { data } = await axios.get(
-					`/waInstance${get().user.idInstance}/receiveNotification/${
+				const { data } = await axios.delete(
+					`/waInstance${get().user.idInstance}/deleteNotification/${
 						get().user.apiTokenInstance
 					}/${receiptId}`,
 				)
