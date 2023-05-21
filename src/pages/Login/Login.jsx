@@ -1,10 +1,10 @@
-import classes from './Login.module.scss'
-import Input from '../../components/Input/Input'
-import Button from '../../components/Button/Button'
 import { useState } from 'react'
+import Button from '../../components/Button/Button'
+import Input from '../../components/Input/Input'
 import Loader from '../../components/Loader/Loader'
 import TextError from '../../components/TextError/TextError'
 import { useStore } from '../../store'
+import classes from './Login.module.scss'
 
 const Login = () => {
 	const [loading, setLoading] = useState(false)
@@ -53,7 +53,7 @@ const Login = () => {
 								}
 								value={form.idInstance}
 								required
-								placeholder='idInstance'
+								placeholder="idInstance"
 							/>
 							<Input
 								value={form.apiTokenInstance}
@@ -61,7 +61,7 @@ const Login = () => {
 								onChange={e =>
 									setForm(p => ({ ...p, apiTokenInstance: e.target.value }))
 								}
-								placeholder='apiTokenInstance'
+								placeholder="apiTokenInstance"
 							/>
 
 							{error && <TextError>Некорректные данные</TextError>}

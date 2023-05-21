@@ -1,13 +1,13 @@
-@import "../../assets/styles/vars.scss";
+@import '../../assets/styles/vars.scss';
 
 .button {
-    border: none;
-    border-radius: 8px;
-    padding: 8px 15px;
-    background-color: transparent;
-    cursor: pointer;
+	border: none;
+	border-radius: 8px;
+	padding: 8px 15px;
+	background-color: transparent;
+	cursor: pointer;
 
-    &:hover {
-        background-color: $white_gray;
-    }
+	&:hover {
+		background-color: $white_gray;
+	}
 }

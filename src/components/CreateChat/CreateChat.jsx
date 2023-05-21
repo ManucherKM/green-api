@@ -1,11 +1,11 @@
-import classes from './CreateChat.module.scss'
-import Modal from '../Modal/Modal'
-import Input from '../Input/Input'
-import Button from '../Button/Button'
-import TextError from '../TextError/TextError'
-import Loader from '../Loader/Loader'
 import { useState } from 'react'
 import { useStore } from '../../store'
+import Button from '../Button/Button'
+import Input from '../Input/Input'
+import Loader from '../Loader/Loader'
+import Modal from '../Modal/Modal'
+import TextError from '../TextError/TextError'
+import classes from './CreateChat.module.scss'
 
 const CreateChat = ({ setVisible }) => {
 	const [number, setNumber] = useState('')
@@ -49,7 +49,7 @@ const CreateChat = ({ setVisible }) => {
 						<Input
 							onChange={numberHandler}
 							value={number}
-							placeholder='79231234562'
+							placeholder="79231234562"
 						/>
 						{error && <TextError>Некорректные данные</TextError>}
 						<Button onClick={createChatHandler}>Создать</Button>

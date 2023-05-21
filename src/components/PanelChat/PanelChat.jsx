@@ -1,9 +1,9 @@
-import { useEffect, useLayoutEffect, useRef, useState } from 'react'
-import classes from './PanelChat.module.scss'
+import { useEffect, useRef, useState } from 'react'
 import { useStore } from '../../store'
 import Input from '../Input/Input'
-import Message from '../Message/Message'
 import Loader from '../Loader/Loader'
+import Message from '../Message/Message'
+import classes from './PanelChat.module.scss'
 
 const PanelChat = ({ currentChat }) => {
 	const getMessages = useStore(state => state.getMessages)
@@ -28,12 +28,12 @@ const PanelChat = ({ currentChat }) => {
 	async function checkUpdates() {
 		const res = await getNotifications()
 
-		if (res && res.length) {
+		if (res) {
 			fetchMessages()
 			// removeNotifications(res[0].receiptId)
 		}
 
-		setTimeout(checkUpdates, 5000)
+		setTimeout(checkUpdates, 4000)
 	}
 
 	async function sendMessageHandler(e) {
@@ -91,7 +91,7 @@ const PanelChat = ({ currentChat }) => {
 						onKeyDown={sendMessageHandler}
 						value={message}
 						onChange={e => setMessage(e.target.value)}
-						placeholder='Сообщение'
+						placeholder="Сообщение"
 					/>
 				</div>
 			)}

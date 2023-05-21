@@ -18,7 +18,7 @@ export const useStore = create(
 
 				try {
 					const { data } = await axios.get(
-						`/waInstance${idInstance}/getStateInstance/${apiTokenInstance}`
+						`/waInstance${idInstance}/getStateInstance/${apiTokenInstance}`,
 					)
 
 					if (data.stateInstance !== 'authorized') {
@@ -68,7 +68,7 @@ export const useStore = create(
 					`/waInstance${get().user.idInstance}/GetChatHistory/${
 						get().user.apiTokenInstance
 					}`,
-					params
+					params,
 				)
 
 				if (!data.length) {
@@ -88,7 +88,7 @@ export const useStore = create(
 					`/waInstance${get().user.idInstance}/SendMessage/${
 						get().user.apiTokenInstance
 					}`,
-					params
+					params,
 				)
 
 				if (!data) {
@@ -101,7 +101,7 @@ export const useStore = create(
 				const { data } = await axios.get(
 					`/waInstance${get().user.idInstance}/receiveNotification/${
 						get().user.apiTokenInstance
-					}`
+					}`,
 				)
 				return data
 			},
@@ -113,7 +113,7 @@ export const useStore = create(
 				const { data } = await axios.get(
 					`/waInstance${get().user.idInstance}/receiveNotification/${
 						get().user.apiTokenInstance
-					}/${receiptId}`
+					}/${receiptId}`,
 				)
 
 				return data
@@ -121,6 +121,6 @@ export const useStore = create(
 		}),
 		{
 			name: 'store',
-		}
-	)
+		},
+	),
 )
