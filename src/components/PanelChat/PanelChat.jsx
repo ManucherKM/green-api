@@ -31,7 +31,7 @@ const PanelChat = ({ currentChat }) => {
 			removeNotifications(res.receiptId)
 		}
 
-		setTimeout(checkUpdates, 1000)
+		setTimeout(checkUpdates, 500)
 	}
 
 	async function sendMessageHandler(e) {
